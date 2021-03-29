@@ -1,4 +1,4 @@
-# quickz-sh
+# my-zsh
 A simple script to setup an awesome shell environment.
 Quickly install and setup zsh and oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh) with
 * powerlevel10k theme (https://github.com/romkatv/powerlevel10k)
@@ -8,9 +8,6 @@ Quickly install and setup zsh and oh-my-zsh (https://github.com/robbyrussell/oh-
 * zsh-syntax-highlighting (https://github.com/zsh-users/zsh-syntax-highlighting)
 * history-substring-search (https://github.com/zsh-users/zsh-history-substring-search)
 * fzf (https://github.com/junegunn/fzf)
-* k (https://github.com/supercrabtree/k)
-* marker (https://github.com/pindexis/marker)
-* todotxt (https://github.com/todotxt/todo.txt-cli)
 
 Sets following useful aliases:
 * l="ls -lah"         - just type "l" instead of "ls -lah"
@@ -42,8 +39,8 @@ Requirements:
 * `python3` or `python` is required to run option '-c' which copies history from .bash_history
 
 ``` bash
-git clone https://github.com/jotyGill/quickz-sh.git
-cd quickz-sh
+git clone https://github.com/mayur-chavhan/my-zsh.git
+cd my-zsh
 ./quickz.sh -c        # only run with '-c' the first time, running multiple times will duplicate history entries
 ```
 
@@ -55,7 +52,6 @@ You can also manually install Nerd Fonts of your choice.
 
 * If the text/icons look broken, make sure your terminal is using one of the Nerd fonts. [discussion](https://github.com/powerline/fonts/issues/185). I recommend "RobotoMono Nerd Font"
 
-* marker's shortcut "Ctr+t" clashed with fzf so I rebound it to "Ctr +b"
 
 * All oh-my-zsh plugins are installed under ~/.oh-my-zsh, Other tools (fzf,marker,todo) are installed in ~/.quickzsh
 
