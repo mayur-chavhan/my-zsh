@@ -22,6 +22,15 @@ Sets following useful aliases:
 * ipgeo - (curl "http://api.db-ip.com/v2/free/$1")    - finds geo location from IP
 * corona - (curl "https://corona-stats.online/")      - shows corona virus spread live stats
 
+Install Colorls with ls aliases and its ruby's dependency.
+
+### Script will ask you wether your want to install colorls with ruby packages and it will add lines in zshrc.
+
+* alias ls="colorls -A"           # short, multi-line
+* alias ll="colorls -1A"          # list, 1 per line
+* alias ld="ll"                   # ^^^, NOTE: Trying to move to this for alternate hand commands
+* alias la="colorls -lA"          # list w/ info
+
 ## Installation
 Requirements:
 * `git` to clone it.
