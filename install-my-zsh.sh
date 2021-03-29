@@ -11,7 +11,11 @@ else
 fi
 
 
-if mv -n ~/.zshrc ~/.zshrc-backup-$(date +"%Y-%m-%d"); then # backup .zshrc
+if [ ! -f ~/.zshrc ]; then
+
+    echo -e ".zshrc not found"
+else
+    mv -n ~/.zshrc ~/.zshrc-backup-$(date +"%Y-%m-%d") # backup .zshrc
     echo -e "\n\tBacked up the current .zshrc to .zshrc-backup-date\n"
 fi
 
@@ -57,13 +61,15 @@ if [ -d ~/.oh-my-zsh/custom/plugins/zsh-colorls ]; then
     cd ~/.oh-my-zsh/custom/plugins/zsh-colorls && git pull
 else
     
-    echo -n "\n\t Do you want to install Colorls (y/n)? "
+    echo -e "\n\t Do you want to install Colorls (y/n)? "
     read answer
 
     if [ "$answer" != "${answer#[Yy]}" ] ;then
 
     git clone https://github.com/Kallahan23/zsh-colorls ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-colorls
-    sudo apt-get install ruby-full gcc make ruby-dev ruby-colorize -y
+    sudo apt-get update || sudo yum update || sudo pacman -Syu || sudo dnf update
+    sudo apt-get install gcc make -y
+    sudo apt-get install ruby ruby-dev ruby-colorize -y || sudo pacman -S ruby ruby-dev ruby-colorize
     sudo gem install colorls
 
 cat << EOF >> ~/.zshrc
@@ -97,12 +103,13 @@ else
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
-if [ -d ~/.my-zsh/fzf ]; then
-    cd ~/.my-zsh/fzf && git pull
-    ~/.my-zsh/fzf/install --all --key-bindings --completion --no-update-rc --64
+if [ -d ~/.fzf ]; then
+    cd ~/.fzf && git pull
+    ~/.fzf/install --all --key-bindings --completion --no-update-rc --64
 else
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.my-zsh/.fzf
-    ~/.my-zsh/.fzf/install
+  
+  sudo apt-get install fzf
+
 
 fi
 
