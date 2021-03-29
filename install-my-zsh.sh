@@ -60,15 +60,14 @@ if [ -d ~/.oh-my-zsh/custom/plugins/zsh-colorls ]; then
     cd ~/.oh-my-zsh/custom/plugins/zsh-colorls && git pull
 else
     
-    echo -e "\n\t Do you want to install Colorls (y/n)? "
-    read answer
+    echo -e "\n\t Do you want to install Colorls (y/n)? "; read -r answer    
 
     if [ "$answer" != "${answer#[Yy]}" ] ;then
 
     git clone https://github.com/Kallahan23/zsh-colorls ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-colorls
     sudo apt-get update || sudo yum update || sudo pacman -Syu || sudo dnf update
-    sudo apt-get install gcc make -y
-    sudo apt-get install ruby ruby-dev ruby-colorize -y || sudo pacman -S ruby ruby-dev ruby-colorize
+    sudo apt-get install gcc make -y || sudo pacman -S gcc make || sudo yum -y gcc make || sudo dnf -y gcc make
+    sudo apt-get install ruby ruby-dev ruby-colorize -y || sudo pacman -S ruby ruby-dev ruby-colorize || sudo yum -y ruby ruby-dev ruby-colorize
     sudo gem install colorls
 
 cat << EOF >> ~/.zshrc
@@ -107,7 +106,7 @@ if [ -d ~/.fzf ]; then
     ~/.fzf/install --all --key-bindings --completion --no-update-rc --64
 else
   
-  sudo apt-get install fzf
+  sudo apt-get install fzf -y
 
 
 fi
@@ -141,3 +140,4 @@ else
     echo -e "\n\tSomething is wrong"
 fi
 exit
+
