@@ -13,12 +13,11 @@ fi
 
 if [ ! -f ~/.zshrc ]; then
 
-    echo -e ".zshrc not found"
+    echo -e "\n\tZSH is not started yet\n"
 else
     mv -n ~/.zshrc ~/.zshrc-backup-$(date +"%Y-%m-%d") # backup .zshrc
     echo -e "\n\tBacked up the current .zshrc to .zshrc-backup-date\n"
 fi
-
 
 echo -e "\n\tInstalling oh-my-zsh\n"
 if [ -d ~/.oh-my-zsh ]; then
@@ -136,7 +135,7 @@ fi
 # source ~/.zshrc
 echo -e "\nSudo access is needed to change default shell\n"
 
-if chsh -s $(which zsh) && /bin/zsh -i -c omz update; then
+if chsh -s $(which zsh) && /bin/zsh -i -c upgrade_oh_my_zsh; then
     echo -e "\n\tInstallation Successful, exit terminal and enter a new session"
 else
     echo -e "\n\tSomething is wrong"
