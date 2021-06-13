@@ -1,4 +1,6 @@
 # my-zsh
+
+![my-zsh](https://github.com/mayur-chavhan/my-zsh/blob/main/my-zsh.webp)
 A simple script to setup an awesome shell environment.
 Quickly install and setup zsh and oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh) with
 * powerlevel10k theme (https://github.com/romkatv/powerlevel10k)
