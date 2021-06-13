@@ -45,15 +45,3 @@ cd my-zsh
 Change your terminals fonts to either "RobotoMono Nerd Font" or "Hack Nerd Font" or "DejaVu Sans Mono Nerd Fonts".
 You can also manually install Nerd Fonts of your choice.
 
-## Notes
-* If you are already using zsh, your zsh config will be backed up to .zshrc-backup-date
-
-* If the text/icons look broken, make sure your terminal is using one of the Nerd fonts. [discussion](https://github.com/powerline/fonts/issues/185). I recommend "RobotoMono Nerd Font"
-
-
-* All oh-my-zsh plugins are installed under ~/.oh-my-zsh, Other tools (fzf,marker,todo) are installed in ~/.my-zsh
-
-* The look of the shell can be very easily customised[https://github.com/bhilburn/powerlevel9k#prompt-customization] by editing POWERLEVEL9K settings in .zshrc (from line ~15)
-
-
-Suggestions about more cool tools are always welcome :)
