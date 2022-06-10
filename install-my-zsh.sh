@@ -23,7 +23,7 @@ echo -e "\n\tInstalling oh-my-zsh\n"
 if [ -d ~/.oh-my-zsh ]; then
     echo -e "\n\toh-my-zsh is already installed\n"
 else
-    git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 fi
 
 cp -f .zshrc ~/
@@ -134,10 +134,11 @@ fi
 # source ~/.zshrc
 echo -e "\nSudo access is needed to change default shell\n"
 
-if chsh -s $(which zsh) && /bin/zsh -i -c upgrade_oh_my_zsh; then
-    echo -e "\n\tInstallation Successful, exit terminal and enter a new session"
+if chsh -s $(which zsh) && /bin/zsh -i -c 'omz update'; then
+    echo -e "\n\tZSH installed !! please close terminal and open a new session"
 else
     echo -e "\n\tSomething is wrong"
 fi
 exit
+
 
