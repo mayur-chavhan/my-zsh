@@ -10,6 +10,7 @@ else
     fi
 fi
 
+[ ! -d ~/.config/myzsh ] && mkdir -p ~/.config/myzsh 
 
 if [ ! -f ~/.zshrc ]; then
 
@@ -20,51 +21,69 @@ else
 fi
 
 echo -e "\n\tInstalling oh-my-zsh\n"
-if [ -d ~/.oh-my-zsh ]; then
+if [ -d ~/.config/myzsh/oh-my-zsh ]; then
     echo -e "\n\toh-my-zsh is already installed\n"
-else
-    git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-fi
+    git -C ~/.config/myzsh/oh-my-zsh remote set-url origin https://github.com/ohmyzsh/ohmyzsh.git
+elif [ -d ~/.config/myzsh/oh-my-zsh ]; then
+    echo -e "oh-my-zsh in already installed at '~/.oh-my-zsh'. Moving it to '~/.config/myzsh/oh-my-zsh'"
+    export ZSH="$HOME/.config/myzsh/oh-my-zsh"
+    mv ~/.oh-my-zsh ~/.config/myzsh/oh-my-zsh
+    git -C ~/.config/myzsh/oh-my-zsh remote set-url origin https://github.com/ohmyzsh/ohmyzsh.git
+else   
+    git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.config/myzsh/oh-my-zsh
 
 cp -f .zshrc ~/
 
-
-mkdir -p ~/.my-zsh       # external plugins, things, will be instlled in here
-
-if [ -d ~/.oh-my-zsh/plugins/zsh-autosuggestions ]; then
-    cd ~/.oh-my-zsh/plugins/zsh-autosuggestions && git pull
-else
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
+mkdir -p ~/.cache/zsh/
+if [ -f ~/.zcompdump ]; then
+    mv ~/.zcompdump* ~/.cache/zsh/
 fi
 
-if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
-    cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
+if [ -d ~/.config/myzsh/oh-my-zsh/plugins/zsh-autosuggestions ]; then
+    cd ~/.config/myzsh/oh-my-zsh/plugins/zsh-autosuggestions && git pull
 else
-    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.config/myzsh/oh-my-zsh/plugins/zsh-autosuggestions
 fi
 
-if [ -d ~/.oh-my-zsh/custom/plugins/zsh-completions ]; then
-    cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
+if [ -d ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
+    cd ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
 else
-    git clone --depth=1 https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 fi
 
-if [ -d ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search ]; then
-    cd ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search && git pull
+if [ -d ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-completions ]; then
+    cd ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-completions && git pull
 else
-    git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+    git clone --depth=1 https://github.com/zsh-users/zsh-completions ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-completions
 fi
 
+if [ -d ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-history-substring-search ]; then
+    cd ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-history-substring-search && git pull
+else
+    git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-history-substring-search
+fi
 
-if [ -d ~/.oh-my-zsh/custom/plugins/zsh-colorls ]; then
-    cd ~/.oh-my-zsh/custom/plugins/zsh-colorls && git pull
+if [ -d ~/.config/myzsh/marker ]; then
+    cd ~/.config/myzsh/marker && git pull
+else
+    git clone --depth 1 https://github.com/jotyGill/marker ~/.config/myzsh/marker
+fi
+
+if ~/.config/myzsh/marker/install.py; then
+    echo -e "Installed Marker\n"
+else
+    echo -e "Marker Installation Had Issues\n"
+fi
+
+if [ -d ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-colorls ]; then
+    cd ~/.config/myzsh/oh-my-zsh/custom/plugins/zsh-colorls && git pull
 else
     
     echo -e "\n\t Do you want to install Colorls (y/n)? "; read -r answer    
 
     if [ "$answer" != "${answer#[Yy]}" ] ;then
 
-    git clone https://github.com/Kallahan23/zsh-colorls ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-colorls
+    git clone https://github.com/Kallahan23/zsh-colorls ${ZSH_CUSTOM:-~/.config/myzsh/oh-my-zsh/custom}/plugins/zsh-colorls
     sudo apt-get update || sudo yum update || sudo pacman -Syu || sudo dnf update
     sudo apt-get install gcc make -y || sudo pacman -S gcc make || sudo yum -y gcc make || sudo dnf -y gcc make
     sudo apt-get install ruby ruby-dev ruby-colorize -y || sudo pacman -S ruby ruby-dev ruby-colorize || sudo yum -y ruby ruby-dev ruby-colorize
@@ -85,6 +104,10 @@ EOF
 
 fi
 
+ZDOTDIR="~/.config/myzsh/zshrc"
+if [ ! -d $ZDOTDIR ]; then
+    mkdir -p $ZDOTDIR
+fi
 # INSTALL FONTS
 
 echo -e "\n\tInstalling Nerd Fonts version of Hack, Roboto Mono, DejaVu Sans Mono\n"
@@ -95,10 +118,10 @@ wget -q --show-progress -N https://github.com/ryanoasis/nerd-fonts/raw/master/pa
 
 fc-cache -fv ~/.fonts
 
-if [ -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
-    cd ~/.oh-my-zsh/custom/themes/powerlevel10k && git pull
+if [ -d ~/.config/myzsh/oh-my-zsh/custom/themes/powerlevel10k ]; then
+    cd ~/.config/myzsh/oh-my-zsh/custom/themes/powerlevel10k && git pull
 else
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.config/myzsh/oh-my-zsh/custom/themes/powerlevel10k
 fi
 
 if [ -d ~/.fzf ]; then
