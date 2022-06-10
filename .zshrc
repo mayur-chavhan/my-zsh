@@ -95,7 +95,6 @@ plugins=(
     )
 #plugins+=(zsh-nvm)
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
