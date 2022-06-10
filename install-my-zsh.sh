@@ -31,6 +31,7 @@ elif [ -d ~/.config/myzsh/oh-my-zsh ]; then
     git -C ~/.config/myzsh/oh-my-zsh remote set-url origin https://github.com/ohmyzsh/ohmyzsh.git
 else   
     git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.config/myzsh/oh-my-zsh
+fi
 
 cp -f .zshrc ~/
 
@@ -157,7 +158,7 @@ fi
 # source ~/.zshrc
 echo -e "\nSudo access is needed to change default shell\n"
 
-if chsh -s $(which zsh) && /bin/zsh -i -c 'omz update'; then
+if chsh -s $(which zsh) && $(which zsh) -i -c 'omz update'; then
     echo -e "\n\tZSH installed !! please close terminal and open a new session"
 else
     echo -e "\n\tSomething is wrong"
